@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Tiquetes</title>
+</head>
+<body>
+    <h1>Listado de Tiquetes</h1>
+    <ul>
+        {% for tiquete in tiquetes %}
+        <li>{{ tiquete.cliente.nombre }} - {{ tiquete.atraccion.nombre }} ({{ tiquete.fecha }})</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Volver al inicio</a>
+</body>
+</html>
