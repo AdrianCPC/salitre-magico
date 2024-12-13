@@ -1,6 +1,5 @@
 """Creacion de modelos"""
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -21,12 +20,7 @@ class Cliente(models.Model):
     publicidad = models.BooleanField(default=True)
     def __str__(self):
         return str(self.nombre)
-    def clean(self):
-        """Validación edad negativa"""
-        if self.edad is not None:
-            if self.edad < 0:
-                raise ValidationError("La edad no puede ser negativa")
-        super().clean()
+
 
 class Empleado(models.Model):
     """Tipos empleados en el parque"""
