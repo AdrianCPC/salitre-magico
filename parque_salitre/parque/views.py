@@ -1,4 +1,5 @@
 """Modulo vistas"""
+# pylint: disable=no-member
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView, UpdateView
@@ -57,7 +58,8 @@ def agregar_tiquete(request):
 class ClienteUpdateView(UpdateView):
     """Edicion Cliente"""
     model = Cliente
-    fields = ['nombre','cedula','telefono','correo','estatura','edad','contacto_familiar','publicidad']
+    fields = ['nombre','cedula','telefono','correo','estatura',
+              'edad','contacto_familiar','publicidad']
     template_name = 'cliente_form.html'
     success_url = reverse_lazy('listar_clientes')
 
@@ -88,7 +90,7 @@ class ClienteDeleteView(DeleteView):
     model = Cliente
     template_name = 'cliente_confirm_delete.html'
     success_url = reverse_lazy('listar_clientes')
-    
+
 class EmpleadoDeleteView(DeleteView):
     """Eliminacion Empleado"""
     model = Empleado

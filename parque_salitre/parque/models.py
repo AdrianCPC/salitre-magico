@@ -1,13 +1,11 @@
 """Creacion de modelos"""
 
 from django.db import models
-#from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 class Cliente(models.Model):
     """Clientes del parque"""
-    #...
     nombre = models.CharField(max_length=100)
-    #apellido = models.CharField(max_length=100)
     cedula = models.CharField(max_length=15, unique=True)
     telefono = models.CharField(max_length=15)
     correo = models.EmailField()
@@ -29,13 +27,12 @@ class Empleado(models.Model):
         ('MANT', 'Mantenimiento'),
     ]
     nombre = models.CharField(max_length=100)
-    #apellido = models.CharField(max_length=100)
     cedula = models.CharField(max_length=15, unique=True)
     telefono = models.CharField(max_length=15)
     tipo = models.CharField(max_length=5, choices=TIPOS_EMPLEADO)
     horario_laboral = models.CharField(max_length=50)
-    def __str__(self): # pylint: disable=E1101
-        return f"{self.nombre} - {self.get_tipo_display()}"
+    def __str__(self):
+        return f"{self.nombre} - {self.tipo}"
 
 
 
