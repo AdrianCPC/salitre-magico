@@ -1,17 +1,38 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Atracciones</title>
-</head>
-<body>
-    <h1>Listado de Atracciones</h1>
-    <ul>
+{% extends 'base.html' %}
+
+{% block title %}Atracciones{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Listado de Atracciones</h2>
+<a href="{% url 'agregar_atraccion' %}" class="btn btn-primary mb-3">Agregar Atracción</a>
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Clasificación</th>
+            <th>Estatura mínima</th>
+            <th>Condiciones de uso</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for atraccion in atracciones %}
-        <li>{{ atraccion.nombre }} - {{ atraccion.clasificacion }}</li>
+        <tr>
+            <td>{{ atraccion.id }}</td>
+            <td>{{ atraccion.nombre }}</td>
+            <td>{{ atraccion.descripcion }}</td>
+            <td>{{ atraccion.clasificacion }}</td>
+            <td>{{ atraccion.estatura_minima }}</td>
+            <td>{{ atraccion.condiciones_uso }}</td>
+            <td>
+                <a href="{% url 'editar_atraccion' atraccion.id %}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{% url 'eliminar_atraccion' atraccion.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+            </td>
+        </tr>
         {% endfor %}
-    </ul>
-    <a href="/">Volver al inicio</a>
-</body>
-</html>
+    </tbody>
+</table>
+{% endblock %}
+

@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Tiquete</title>
-</head>
-<body>
-    <h1>Editar Tiquete</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar Cambios</button>
-    </form>
-    <a href="{% url 'listar_tiquetes' %}">Cancelar</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Editar Tiquete{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Editar Tiquete</h2>
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        <a href="{% url 'listar_tiquetes' %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

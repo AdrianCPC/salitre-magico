@@ -1,12 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parque Salitre Mágico</title>
-</head>
-<body>
-    <h1>Bienvenido a Parque Salitre Mágico</h1>
-    <p>Explora nuestras atracciones y vive una experiencia mágica.</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="display-4">¡Bienvenido a Parque Salitre Mágico!</h1>
+    <p class="lead">Gestiona clientes, empleados, atracciones y tiquetes de manera fácil y rápida.</p>
+    <hr class="my-4">
+    <div class="d-flex justify-content-center">
+        <a href="{% url 'listar_clientes' %}" class="btn btn-primary mx-2">Clientes</a>
+        <a href="{% url 'listar_empleados' %}" class="btn btn-success mx-2">Empleados</a>
+        <a href="{% url 'listar_atracciones' %}" class="btn btn-info mx-2">Atracciones</a>
+        <a href="{% url 'listar_tiquetes' %}" class="btn btn-warning mx-2">Tiquetes</a>
+    </div>
+</div>
+{% endblock %}

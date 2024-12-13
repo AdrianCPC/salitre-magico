@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Atraccion</title>
-</head>
-<body>
-    <h1>Agregar Atraccion</h1>
-    <form method="POST">
+{% extends 'base.html' %}
+
+{% block title %}Agregar Atracción{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Agregar Atracción</h2>
+    <form method="post" class="p-4 shadow-sm rounded bg-light">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar</button>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{% url 'listar_atracciones' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
     </form>
-    <a href="/atracciones/">Volver al listado de atracciones</a>
-</body>
-</html>
+</div>
+{% endblock %}

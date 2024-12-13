@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Eliminar Tiquete</title>
-</head>
-<body>
-    <h1>¿Está seguro de que desea eliminar este tiquete?</h1>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Eliminar</button>
-    </form>
-    <a href="{% url 'listar_tiquetes' %}">Cancelar</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Tiquete{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 text-danger">¿Está seguro de que desea eliminar este tiquete?</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'listar_tiquetes' %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+{% endblock %}
