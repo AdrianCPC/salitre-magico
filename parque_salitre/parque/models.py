@@ -62,3 +62,18 @@ class Tiquete(models.Model):
     fecha = models.DateField(auto_now_add=True)
     def __str__(self):
         return f"Tiquete de {self.cliente} para {self.atraccion}"
+
+class EstadoMaquina(models.Model):
+    """Estado de las atracciones"""
+    atraccion = models.ForeignKey(Atraccion, on_delete=models.CASCADE, related_name='estados')
+    fecha = models.DateTimeField(auto_now_add=True)
+    estado = models.CharField(
+        max_length=20,
+        choices=[('Disponible', 'Disponible'), ('Mantenimiento','Mantenimiento'),
+                 ('Averiada','Averiada')]
+    )
+    observaciones = models.TextField(null=True, blank=True)
+    def __str__(self):
+        atraccion_nombre = self.atraccion.nombre #pylint: disable=E1101
+        fecha_formateada = self.fecha.strftime('%Y-%m-%d %H:%M:%S') #pylint: disable=E1101
+        return f"{atraccion_nombre} - {self.estado}({fecha_formateada})"

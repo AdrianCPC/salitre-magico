@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Estadísticas Avanzadas{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Estadísticas Avanzadas</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Atracción</th>
+                <th>Total Tiquetes Vendidos</th>
+                <th>Total Ingresos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for atraccion in atracciones %}
+            <tr>
+                <td>{{ atraccion.nombre }}</td>
+                <td>{{ atraccion.total_tiquetes }}</td>
+                <td>${{ atraccion.total_ingresos|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

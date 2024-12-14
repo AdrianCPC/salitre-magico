@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Estado de Máquina{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Actualizar Estado de Máquina</h1>
+    <h2>Atracción: {{ atraccion.nombre }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+        <a href="{% url 'listar_atracciones' %}" class="btn btn-secondary mt-3">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,7 +1,7 @@
 """Creación de formularios"""
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Cliente, Empleado, Atraccion, Tiquete
+from .models import Cliente, Empleado, Atraccion, Tiquete, EstadoMaquina
 
 #Creacion de los formularios
 class ClienteForm(forms.ModelForm):
@@ -26,6 +26,13 @@ class ClienteForm(forms.ModelForm):
             raise forms.ValidationError(
                 "El contacto familiar es obligatorio para menores de 18 años")
         return cleaned_data
+    def clean_publicidad(self):
+        """Validar que menores de edad no reciban publicidad"""
+        edad = self.cleaned_data.get('edad')
+        publicidad = self.cleaned_data.get('publicidad')
+        if edad is not None and edad < 18 and publicidad:
+            raise ValidationError("No se puede enviar publicidad a menores de edad.")
+        return publicidad
 
 class EmpleadoForm(forms.ModelForm):
     """Formulario Empleado"""
@@ -46,4 +53,11 @@ class TiqueteForm(forms.ModelForm):
     class Meta:
         """Campos tiquetes"""
         model = Tiquete
+        fields = '__all__'
+
+class EstadoMaquinaForm(forms.ModelForm):
+    """Formulario estado maquinaria"""
+    class Meta:
+        """Campos estado maquina"""
+        model = EstadoMaquina
         fields = '__all__'

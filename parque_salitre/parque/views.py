@@ -3,8 +3,10 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView, UpdateView
+from django.db.models import Count, Sum, Q
+from django.utils import timezone
 
-from .forms import AtraccionForm, ClienteForm, EmpleadoForm, TiqueteForm
+from .forms import AtraccionForm, ClienteForm, EmpleadoForm, TiqueteForm, EstadoMaquinaForm
 from .models import Atraccion, Cliente, Empleado, Tiquete
 
 
@@ -53,6 +55,18 @@ def agregar_tiquete(request):
     else:
         form = TiqueteForm()
     return render(request, 'form_tiquete.html', {'form':form})
+
+def agregar_estado_maquina(request, atraccion_id):
+    """Vista estado maquina"""
+    atraccion = Atraccion.objects.get(id=atraccion_id)
+    if request.method == 'POST':
+        form = EstadoMaquinaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_atracciones')
+    else:
+        form = EstadoMaquinaForm(initial={'atraccion': atraccion})
+    return render(request, 'form_estado_maquina.html', {'form':form, 'atraccion': atraccion})
 
 #Vistas Edición
 class ClienteUpdateView(UpdateView):
@@ -142,3 +156,23 @@ def listar_tiquetes(request):
     """Lista tiquetes"""
     tiquetes = Tiquete.objects.all()
     return render(request, 'tiquetes.html', {'tiquetes': tiquetes})
+
+#Estadisticas
+def estadisticas_avanzadas(request):
+    """Vista de estadísticas"""
+    atracciones = Atraccion.objects.annotate(
+        total_tiquetes=Count('tiquete'),
+        total_ingresos=Sum('tiquete__precio')
+    )
+    return render(request, 'estadisticas.html', {'atracciones': atracciones})
+
+#Control ocupación
+def control_ocupacion(request):
+    """Vista control ocupación"""
+    ocupacion = Atraccion.objects.annotate(
+        clientes_en_uso=Count(
+            'tiquete',
+            filter=Q(tiquete__fecha=timezone.localdate())
+        )
+    )
+    return render(request, 'control_ocupacion.html', {'ocupacion': ocupacion})

@@ -14,11 +14,19 @@ urlpatterns = [
     path('empleados/', views.listar_empleados, name='listar_empleados'),
     path('atracciones/', views.listar_atracciones, name='listar_atracciones'),
     path('tiquetes/', views.listar_tiquetes, name='listar_tiquetes'),
+    #path('estados/', views.listar_estados, name='listar_estados'),
+    path('estadisticas/', views.estadisticas_avanzadas, name='estadisticas_avanzadas'),
+    path('control-ocupacion/', views.control_ocupacion, name='control_ocupacion'),
+
+
     #URLS agregación de registros
     path('clientes/agregar/', views.agregar_cliente, name='agregar_cliente'),
     path('empleados/agregar/', views.agregar_empleado, name='agregar_empleado'),
     path('atracciones/agregar/', views.agregar_atraccion, name='agregar_atraccion'),
     path('tiquetes/agregar/', views.agregar_tiquete, name='agregar_tiquete'),
+    path('atraccion/<int:atraccion_id>/estado/agregar/',
+         views.agregar_estado_maquina, name='agregar_estado_maquina'),
+
     #URLS edicion y eliminar registros
     path('cliente/editar/<int:pk>/', ClienteUpdateView.as_view(), name='editar_cliente'),
     path('cliente/eliminar/<int:pk>/', ClienteDeleteView.as_view(), name='eliminar_cliente'),

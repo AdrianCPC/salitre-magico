@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Control de Ocupación{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Control de Ocupación</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Atracción</th>
+                <th>Clientes en Uso</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for atraccion in ocupacion %}
+            <tr>
+                <td>{{ atraccion.nombre }}</td>
+                <td>{{ atraccion.clientes_en_uso }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
