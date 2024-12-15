@@ -3,8 +3,9 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView, UpdateView
-from django.db.models import Count, Sum, Q
+from django.db.models import Count, Q
 from django.utils import timezone
+from django.http import Http404
 
 from .forms import AtraccionForm, ClienteForm, EmpleadoForm, TiqueteForm, EstadoMaquinaForm
 from .models import Atraccion, Cliente, Empleado, Tiquete
@@ -58,7 +59,10 @@ def agregar_tiquete(request):
 
 def agregar_estado_maquina(request, atraccion_id):
     """Vista estado maquina"""
-    atraccion = Atraccion.objects.get(id=atraccion_id)
+    try:
+        atraccion = Atraccion.objects.get(id=atraccion_id)
+    except Atraccion.DoesNotExist as exc:
+        raise Http404('La atracción no existe') from exc
     if request.method == 'POST':
         form = EstadoMaquinaForm(request.POST)
         if form.is_valid():
@@ -162,7 +166,7 @@ def estadisticas_avanzadas(request):
     """Vista de estadísticas"""
     atracciones = Atraccion.objects.annotate(
         total_tiquetes=Count('tiquete'),
-        total_ingresos=Sum('tiquete__precio')
+        #total_ingresos=Sum('tiquete__precio')
     )
     return render(request, 'estadisticas.html', {'atracciones': atracciones})
 
